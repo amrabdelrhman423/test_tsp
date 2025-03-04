@@ -6,18 +6,27 @@ import '../../domain/useCase/get_characters.dart';
 
 part 'character_bloc_state.dart';
 
-class CharacterBloc extends Cubit<CharacterState> {
+class CharacterCubit extends Cubit<CharacterState> {
   final GetCharacters getCharacters;
+  List<Character> characters = [];
+  int currentPage = 1;
+  bool isFetching = false;
 
-  CharacterBloc(this.getCharacters) : super(CharacterInitial());
+  CharacterCubit(this.getCharacters) : super(CharacterInitial());
 
-  Future<void> fetchCharacters(int page) async {
+  void fetchCharacters() async {
+    if (isFetching) return;
+    isFetching = true;
+    if (currentPage == 1) emit(CharacterLoading());
     try {
-      emit(CharacterLoading());
-      final characters = await getCharacters(page);
+      final newCharacters = await getCharacters(currentPage);
+      characters.addAll(newCharacters);
+      currentPage++;
       emit(CharacterLoaded(characters));
     } catch (e) {
       emit(CharacterError(e.toString()));
+    } finally {
+      isFetching = false;
     }
   }
 }

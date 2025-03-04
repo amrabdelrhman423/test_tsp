@@ -27,6 +27,7 @@ class Character {
     required this.created,
   });
 
+  static String TABLE_NAME = 'characters';
   factory Character.fromJson(Map<String, dynamic> json) {
     return Character(
       id: json['id'],
@@ -41,6 +42,33 @@ class Character {
       episode: List<String>.from(json['episode']),
       url: json['url'],
       created: json['created'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'species': species,
+      'image': image,
+    };
+  }
+
+  factory Character.fromMap(Map<String, dynamic> map) {
+    return Character(
+      id: map['id'],
+      name: map['name'],
+      status: map['status'],
+      species: map['species'],
+      type: '',
+      gender: '',
+      origin: Origin(name: '', url: ''),
+      location: Location(name: '', url: ''),
+      image: map['image'],
+      episode: [],
+      url: '',
+      created: '',
     );
   }
 }

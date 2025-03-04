@@ -14,4 +14,14 @@ class Info {
       prev: json['prev'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'count': count,
+      'pages': pages,
+      'next': next,
+      'prev': prev,
+    };
+  }
+
 }

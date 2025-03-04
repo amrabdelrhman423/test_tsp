@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:test_tsp/features/characters/presentation/screens/characters_page.dart';
+
+import 'core/dependency_injection.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+
   runApp(const MyApp());
 }
 
@@ -31,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  CharacterListPage(),
     );
   }
 }
